@@ -1,5 +1,7 @@
 # create-routines
-Create-routines is a smart action creator for redux and redux-saga. Redux-saga is an excellent library to make application side effects easier to manage. However, it can be tedious and difficult to manage code required for your actions and sagas as your application gets larger. Create-routines is made to cut down a large portion of the boilerplate required using redux and redux-saga in your source code when making API requests.
+Create-routines is a smart action creator for redux and redux-saga. Redux-saga is an excellent library to make application side effects easier to manage. However, it can be tedious and difficult to manage code required for your actions and sagas as your application gets larger.
+* create-routines is made to cut down a large portion of the boilerplate required using redux and redux-saga in your source code when making API requests.
+* create-routines helps flatten your application state.
 
 ## Getting Started
 You obviously need redux and redux-saga as dependencies in your project before using create-routines.
@@ -132,8 +134,8 @@ const mapStateToProps = ({ routines }) => ({
 ```
 This is useful for surfacing components that rely on the state of the api request.
 
-## OnSuccess and onFail
-The createRoutines method can also take in an optional onSuccess / onFail key that can be used to trigger additional async callbacks after your initial api request.
+## onSuccess and onFail
+The createRoutines method can also take in an optional onSuccess / onFail key that can be used to trigger additional async callbacks after your initial api request. Useful for routing off an api call or surfacing components such as snackbars.
 
 ### Example
 ```
@@ -145,4 +147,64 @@ The createRoutines method can also take in an optional onSuccess / onFail key th
   onSuccess: () => push({ pathname: '/home' })
   onFail: () => push({ pathname: '/login' })
 }
+```
+
+## Usage
+Here's an example of createRoutines being used in a react component. The action `fetchDashboardAnnouncements` is using the createRoutines wrapper example we used in our initial example.
+```
+import React form 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+// Actions
+import { fetchDashboardAnnouncements } from 'Actions'
+
+class Announcements extends React.Component {
+  componentDidMount () {
+    this.props.fetchDashboardAnnouncements()
+  }
+
+  render () {
+    const { fetchingAnnouncements, announcements } = this.props
+
+    if (fetchingAnnouncements) {
+      return <LoaderScreen />
+    }
+
+    return (
+      <Card>
+        {
+          announcements.map(announcement => (
+            <AnnouncementItem announcement={announcement} key={announcement.id}
+          ))
+        }
+      </Card>
+    )
+  }
+}
+
+Announcement.defaultProps = {
+  announcements: [],
+  fetchingAnnouncements: false
+}
+
+Announcements.propTypes = {
+  fetchDashboardAnnouncements: PropTypes.func.isRequired,
+  announcements: PropTypes.array,
+  fetchingAnnouncements: PropTypes.bool
+}
+
+const mapStateToProps = ({ routines }) => ({
+  announcements: routines.dashboard.fetchDashboardAnnouncements,
+  fetchingAnnouncements: routines.isLoading.FETCH_DASHBOARD_ANNOUNCEMENTS
+})
+
+const mapDispatchToProps = {
+  fetchDashboardAnnouncements
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Announcements)
 ```
