@@ -19,7 +19,7 @@
     "name": "Grant Kang",
     "email": "grantkang5@gmail.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "redux-saga": "^0.16.0"
   }

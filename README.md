@@ -89,7 +89,7 @@ What this will do is initialize a key in the routine state that looks like this 
 ```
 'replace', 'clear', 'concat', 'remove', 'removeById', 'updateByIdAndReplace', 'updateByIdAndChange'
 ```
-Each of these transformers will manipulate the response data that comes back from the successful api call in a specific way before storing them in your state. Most of them are used for very generic api response manipulations used in the redux pattern that I use frequently. You can see the source code or the transform section to see what they do. Feel free to add your own!
+Each of these transformers will manipulate the response data that comes back from the successful api call in a specific way before storing them in your state. Most of them are used for very generic api response manipulations used in the redux pattern that I use frequently. You can see the source code to see what they do. Feel free to add your own!
 
 You also have the option of inputting your own method into the transform key.
 ```
@@ -208,3 +208,16 @@ export default connect(
   mapDispatchToProps
 )(Announcements)
 ```
+
+## Clear Routines
+Lastly, if you need to clear a state within routines you can use the `clearRoutine` method.
+`import { clearRoutine } from create-routines`
+The clearRoutine method takes in a reducerKey that is formatted the same way as the `createRoutines` method.
+
+### Example
+```
+this.props.clearRoutine(['dashboard', 'fetchDashboardAnnouncements'])
+```
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
