@@ -196,7 +196,7 @@ class Announcements extends React.Component {
       <Card>
         {
           announcements.map(announcement => (
-            <AnnouncementItem announcement={announcement} key={announcement.id}
+            <AnnouncementItem announcement={announcement} key={announcement.id} />
           ))
         }
       </Card>
