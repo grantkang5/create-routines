@@ -3,7 +3,7 @@ Create-routines is a smart action creator for redux and redux-saga. Redux-saga i
 * create-routines is made to cut down a large portion of the boilerplate required using redux and redux-saga in your source code when making API requests.
 * create-routines helps flatten your application state.
 * create-routines breaks up api requests into readable actions in the routines lifecycle method.
-* create-routines helps dealing with surfacing loaders and errors from an api request.
+* create-routines helps dealing with loaders and errors from api requests.
 
 ## Getting Started
 You obviously need redux and redux-saga as dependencies in your project before using create-routines.
