@@ -233,7 +233,10 @@ export default connect(
 ## Clear Routines
 
 Lastly, if you need to clear a state within routines you can use the `clearRoutine` method.
-`import { clearRoutine } from create-routines`
+
+```javascript
+import { clearRoutine } from 'create-routines'
+```
 The clearRoutine method takes in a reducerKey that is formatted the same way as the `createRoutines` method.
 
 ### Example
