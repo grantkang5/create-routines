@@ -51,6 +51,7 @@ routines: routinesReducer({
 ```
 
 ## Creating routine actions
+
 The `createRoutine` method requires 4 values in the routines opts to set the action.
 ```
 {
@@ -60,8 +61,8 @@ The `createRoutine` method requires 4 values in the routines opts to set the act
   transform: string or function
 }
 ```
-### Example
 
+### Example
 ```javascript
 import { createRoutine } from 'create-routines'
 // Constants
@@ -78,6 +79,7 @@ export const fetchDashboardAnnouncements = createRoutine({
 ```
 
 ## Routine opts
+
 * The prefix key requires a string value of the action type.
 * The api key is the function that will make the request to the API call. I am using axios in my example below.
 ```javascript
@@ -93,7 +95,12 @@ What this will do is initialize a key in the routine state that looks like this 
 ```
 Each of these transformers will manipulate the response data that comes back from the successful api call in a specific way before storing them in your state. Most of them are used for very generic api response manipulations used in the redux pattern that I use frequently. You can see the source code to see what they do. Feel free to add your own!
 
-You also have the option of inputting your own method into the transform key.
+You also have the option of inputting your own method into the transform key. Using a custom method for the transform key accepts three arguments:
+
+1. The response from a successful or failed api call.
+2. The current state of the key that the action is trying to transform.
+3. The payload in which the action was invoked with.
+
 ```javascript
 {
   ...
@@ -106,6 +113,7 @@ You also have the option of inputting your own method into the transform key.
 ```
 
 ## Routines Lifecycle
+
 One of the great features of create-routines is that you no longer need to create a bunch of action type constants and creators manually. Once the routines are initialized and triggered, it will run through the routines lifecycle action types.
 
 The action types trigger in succession after its called on top of the prefix that's specified in the routine opts.
@@ -114,16 +122,26 @@ The action types trigger in succession after its called on top of the prefix tha
 ROUTINE_INIT -> TRIGGER -> REQUEST -> SUCCESS / FAIL
 ```
 
+Each lifecycle action is caught by the routinesReducer and routineSaga that looks like this
+```
+1. ROUTINE_INIT
+2. `${prefix}/TRIGGER`
+3. `${prefix}/REQUEST`
+4. `${prefix}/SUCCESS` / `${prefix}/FAIL`
+```
 
 ## Successful API call
+
 If the api request is successful, createRoutines will trigger the SUCCESS action type.
 
 Your routinesReducer will take the response from the successful api call and apply the specified transformation before transforming the state.
 
 ## Failed API call
+
 On a failed api request, createRoutines will trigger the FAIL action type. The response from a failed api request will be stored in the proper reducer key in `routines.error`
 
 ## Loader key
+
 Another big feature of create-routines is the loader key that's stored inside the routines state.
 
 You can check the state of your api request through the loader key. Once the routine action is called, the loader key will trigger to true. The loader key is stored as `routines.isLoading[PREFIX]`
@@ -137,6 +155,7 @@ const mapStateToProps = ({ routines }) => ({
 This is useful for surfacing components that rely on the state of the api request.
 
 ## onSuccess and onFail
+
 The createRoutines method can also take in an optional onSuccess / onFail key that can be used to trigger additional async callbacks after your initial api request. Useful for routing off an api call or surfacing components such as snackbars.
 
 ### Example
@@ -151,7 +170,7 @@ The createRoutines method can also take in an optional onSuccess / onFail key th
 }
 ```
 
-## Usage
+### Usage
 Here's an example of createRoutines being used in a react component. The action `fetchDashboardAnnouncements` is using the createRoutines wrapper example we used in our initial example.
 ```javascript
 import React form 'react'
@@ -212,6 +231,7 @@ export default connect(
 ```
 
 ## Clear Routines
+
 Lastly, if you need to clear a state within routines you can use the `clearRoutine` method.
 `import { clearRoutine } from create-routines`
 The clearRoutine method takes in a reducerKey that is formatted the same way as the `createRoutines` method.
@@ -222,4 +242,5 @@ this.props.clearRoutine(['dashboard', 'fetchDashboardAnnouncements'])
 ```
 
 ## License
+
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
