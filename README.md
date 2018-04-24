@@ -138,7 +138,7 @@ This is useful for surfacing components that rely on the state of the api reques
 The createRoutines method can also take in an optional onSuccess / onFail key that can be used to trigger additional async callbacks after your initial api request. Useful for routing off an api call or surfacing components such as snackbars.
 
 ### Example
-```javascript
+```
 {
   prefix: string,
   api: function,
