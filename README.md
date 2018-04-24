@@ -118,3 +118,31 @@ Your routinesReducer will take the response from the successful api call and app
 
 ## Failed API call
 On a failed api request, createRoutines will trigger the FAIL action type. The response from a failed api request will be stored in the proper reducer key in `routines.error`
+
+## Loader key
+Another big feature of create-routines is the loader key that's stored inside the routines state.
+
+You can check the state of your api request through the loader key. Once the routine action is called, the loader key will trigger to true. The loader key is stored as `routines.isLoading[PREFIX]`
+
+### Example
+```
+const mapStateToProps = ({ routines }) => ({
+  loadingDashboardAnnouncements: routines.isLoading.FETCH_DASHBOARD_ANNOUNCEMENTS
+})
+```
+This is useful for surfacing components that rely on the state of the api request.
+
+## OnSuccess and onFail
+The createRoutines method can also take in an optional onSuccess / onFail key that can be used to trigger additional async callbacks after your initial api request.
+
+### Example
+```
+{
+  prefix: string,
+  api: function,
+  reducerKey: [...strings],
+  transform: string or function,
+  onSuccess: () => push({ pathname: '/home' })
+  onFail: () => push({ pathname: '/login' })
+}
+```
