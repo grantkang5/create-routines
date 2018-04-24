@@ -14,7 +14,7 @@ npm install --save create-routines
 
 ### Sagas
 
-```
+```javascript
 import { all } from 'redux-saga/effects'
 
 import { routineSaga } from 'create-routines'
@@ -29,7 +29,7 @@ export default function* rootSaga() {
 
 ### Reducers
 
-```
+```javascript
 import { combineReducers } from 'redux'
 import { routinesReducer } from 'create-routines'
 
@@ -60,7 +60,7 @@ The `createRoutine` method requires 4 values in the routines opts to set the act
 ```
 ### Example
 
-```
+```javascript
 import { createRoutine } from 'create-routines'
 // Constants
 import { FETCH_DASHBOARD_ANNOUNCEMENTS } from 'Constants'
@@ -78,7 +78,7 @@ export const fetchDashboardAnnouncements = createRoutine({
 ## Routine opts
 * The prefix key requires a string value of the action type.
 * The api key is the function that will make the request to the API call. I am using axios in my example below.
-```
+```javascript
 export const apiFetchPublishedAnnouncements = () => {
   axios.get('/api/v1/announcements', { params: { published: true } })
 }
@@ -92,7 +92,7 @@ What this will do is initialize a key in the routine state that looks like this 
 Each of these transformers will manipulate the response data that comes back from the successful api call in a specific way before storing them in your state. Most of them are used for very generic api response manipulations used in the redux pattern that I use frequently. You can see the source code to see what they do. Feel free to add your own!
 
 You also have the option of inputting your own method into the transform key.
-```
+```javascript
 {
   ...
   transform: (response) => (
@@ -127,7 +127,7 @@ Another big feature of create-routines is the loader key that's stored inside th
 You can check the state of your api request through the loader key. Once the routine action is called, the loader key will trigger to true. The loader key is stored as `routines.isLoading[PREFIX]`
 
 ### Example
-```
+```javascript
 const mapStateToProps = ({ routines }) => ({
   loadingDashboardAnnouncements: routines.isLoading.FETCH_DASHBOARD_ANNOUNCEMENTS
 })
@@ -138,7 +138,7 @@ This is useful for surfacing components that rely on the state of the api reques
 The createRoutines method can also take in an optional onSuccess / onFail key that can be used to trigger additional async callbacks after your initial api request. Useful for routing off an api call or surfacing components such as snackbars.
 
 ### Example
-```
+```javascript
 {
   prefix: string,
   api: function,
@@ -151,7 +151,7 @@ The createRoutines method can also take in an optional onSuccess / onFail key th
 
 ## Usage
 Here's an example of createRoutines being used in a react component. The action `fetchDashboardAnnouncements` is using the createRoutines wrapper example we used in our initial example.
-```
+```javascript
 import React form 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -215,7 +215,7 @@ Lastly, if you need to clear a state within routines you can use the `clearRouti
 The clearRoutine method takes in a reducerKey that is formatted the same way as the `createRoutines` method.
 
 ### Example
-```
+```javascript
 this.props.clearRoutine(['dashboard', 'fetchDashboardAnnouncements'])
 ```
 
