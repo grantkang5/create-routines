@@ -123,7 +123,7 @@ ROUTINE_INIT -> TRIGGER -> REQUEST -> SUCCESS / FAIL
 ```
 
 Each lifecycle action is caught by the routinesReducer and routineSaga that looks like this
-```
+```javascript
 1. ROUTINE_INIT
 2. `${prefix}/TRIGGER`
 3. `${prefix}/REQUEST`
