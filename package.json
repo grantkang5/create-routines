@@ -1,0 +1,26 @@
+{
+  "name": "create-routines",
+  "version": "1.0.0",
+  "description": "Routine opts for redux-saga",
+  "keywords": [
+    "redux",
+    "saga",
+    "redux-saga",
+    "routines"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "redux-saga": ">=0.15.0"
+  },
+  "author": {
+    "name": "Grant Kang",
+    "email": "grantkang5@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "redux-saga": "^0.16.0"
+  }
+}
